@@ -39,17 +39,13 @@ class SlackController extends DefaultController {
     if (!request.query || !request.query.code) {
       response.status(400).send(`Missing attributes 'code'`);
     }
-    const slack = new WebClient();
-    const requestCode = `${request.query.code}`;
+    const slack = new WebClient(`${config.slack_token}`);
     slack.oauth
       .access({
         client_id: `${config.slack_client_id}`,
         client_secret: `${config.slack_client_secret}`,
-        code: requestCode,
-        redirect_uri:
-          process.env.NODE_ENV === "production"
-            ? `${config.slack_redirect_uri}` // production
-            : `${config.slack_redirect_uri}` // development
+        code: `${request.query.code}`,
+        redirect_uri: `${config.slack_redirect_uri}`
       })
       .then(json => {
         response.status(200).json(json);

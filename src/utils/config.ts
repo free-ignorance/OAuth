@@ -22,7 +22,8 @@ const config = {
   port: normalizePort(process.env.PORT || "3000"),
   slack_client_id: process.env.SLACK_CLIENT_ID,
   slack_client_secret: process.env.SLACK_CLIENT_SECRET,
-  slack_redirect_uri: process.env.SLACK_REDIRECT_URI
+  slack_redirect_uri: process.env.SLACK_REDIRECT_URI,
+  slack_token: process.env.SLACK_TOKEN
 };
 
 export { config, normalizePort };
