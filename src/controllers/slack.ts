@@ -11,12 +11,13 @@ class SlackController extends DefaultController {
 
   public initializeRoutes() {
     const get = `[${fancyText("GET","green")}]`;
-    this.router.get(this.path, this.getSlack);
-    logger.info(`     - ${get} ${this.path}`);
+
     this.router.get(`${this.path}/ping`, this.getSlackCheck);
     logger.info(`     - ${get} ${this.path}/ping`);
     this.router.get(`${this.path}/token`, this.getAuthToken);
     logger.info(`     - ${get} ${this.path}/token`);
+    this.router.get(`${this.path}/token/success`, this.getSlack);
+    logger.info(`     - ${get} ${this.path}/token/success`);
   }
 
   private getSlackCheck = (
@@ -66,7 +67,7 @@ class SlackController extends DefaultController {
     const slackResponse = this.getDefaultResponse();
 
     slackResponse.data = {
-      
+      message: "success"
     };
     response.status(200).send(slackResponse);
   };
