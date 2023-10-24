@@ -1,5 +1,6 @@
 import * as express from "express";
 import { WebClient } from "@slack/web-api";
+import { InstallProvider } from '@slack/oauth';
 
 import { DefaultController } from "./";
 import { logger, fancyText, config } from "../utils";
@@ -11,7 +12,6 @@ class SlackController extends DefaultController {
 
   public initializeRoutes() {
     const get = `[${fancyText("GET","green")}]`;
-
     this.router.get(`${this.path}/ping`, this.getSlackCheck);
     logger.info(`     - ${get} ${this.path}/ping`);
     this.router.get(`${this.path}/token`, this.getAuthToken);
@@ -33,6 +33,21 @@ class SlackController extends DefaultController {
   };
 
   private getAuthToken = (
+    request: express.Request,
+    response: express.Response
+  ) => {
+    // initialize the installProvider
+    const installer = new InstallProvider({
+      clientId: `${config.slack_client_id}`,
+      clientSecret: `${config.slack_client_secret}`,
+      stateSecret: `${config.slack_state_secret}`,
+    });
+
+    installer.handleCallback(request, response);
+
+  };
+  
+  private getAuthTokenOld = (
     request: express.Request,
     response: express.Response
   ) => {
