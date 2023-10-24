@@ -40,7 +40,7 @@ class SlackController extends DefaultController {
     const installer = new InstallProvider({
       clientId: `${config.slack_client_id}`,
       clientSecret: `${config.slack_client_secret}`,
-      stateSecret: `${config.slack_state_secret}`,
+      stateVerification: false,
     });
 
     installer.handleCallback(request, response);

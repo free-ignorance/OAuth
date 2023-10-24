@@ -24,7 +24,7 @@ const config = {
   slack_client_secret: process.env.SLACK_CLIENT_SECRET,
   slack_redirect_uri: process.env.SLACK_REDIRECT_URI,
   slack_token: process.env.SLACK_TOKEN,
-  slack_state_secret: process.env.SLACK_STATE_SECRET || "my-state-secret",
+  slack_state_secret: process.env.SLACK_STATE_SECRET || false,
 };
 
 export { config, normalizePort };
